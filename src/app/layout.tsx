@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
 const TITLE = '世界で1番どうでもいいランキング';
@@ -9,6 +10,7 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
+  robots: { index: false, follow: false }, // 検索結果に出さない（URLを知っている人だけが開ける）
   openGraph: { title: TITLE, description: DESCRIPTION, type: 'website', locale: 'ja_JP' },
   twitter: { card: 'summary', title: TITLE, description: DESCRIPTION },
 };
@@ -30,7 +32,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@700&family=BIZ+UDPGothic:wght@400;700&display=swap"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
